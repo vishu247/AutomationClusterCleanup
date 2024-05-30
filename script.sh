@@ -16,11 +16,11 @@ export PGPASSWORD=$DB_PASSWORD
 echo "deleting and creating new DB"
 SELECT pid, pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'orchestrator';
 
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "REVOKE CONNECT ON DATABASE $GIT_SENSOR_DB FROM public;"
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "ALTER DATABASE $GIT_SENSOR_DB ALLOW_CONNECTIONS = off;"
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$GIT_SENSOR_DB' AND pid <> pg_backend_pid();"
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "DROP DATABASE $GIT_SENSOR_DB;"
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "CREATE DATABASE $GIT_SENSOR_DB;"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "REVOKE CONNECT ON DATABASE $LENS_DB FROM public;"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "ALTER DATABASE $LENS_DB ALLOW_CONNECTIONS = off;"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$LENS_DB' AND pid <> pg_backend_pid();"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "DROP DATABASE $LENS_DB;"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -t -c "CREATE DATABASE $LENS_DB;"
 
 psql -h $DB_HOST -p $DB_PORT -U $DB_USER_NAME -d $DB_NAME -t -c "REVOKE CONNECT ON DATABASE $GIT_SENSOR_DB FROM public;"
 psql -h $DB_HOST -p $DB_PORT -U $DB_USER_NAME -d $DB_NAME -t -c "ALTER DATABASE $GIT_SENSOR_DB ALLOW_CONNECTIONS = off;"
